@@ -1,14 +1,12 @@
 package com.example.testdemo.entity;
 
+import com.example.testdemo.entity.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +16,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "my_users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -39,8 +37,9 @@ public class User {
         return List.of();
     }
 
+    @Override
     public String getPassword() {
-        return "";
+        return getPassword();
     }
 
     public boolean isAccountNonExpired() {
